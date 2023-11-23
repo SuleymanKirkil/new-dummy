@@ -9,5 +9,18 @@ Feature: Medunna Room Creation
     And   enters password into password field
     And   clicks on Sign In submit button
 
-  Scenario: Create Room
+  Scenario Outline: Create Room
     When Clicks on items&titles button
+    And Selects Room option
+    And Clicks create new room button
+    And Enters "<room number>" to Room Number field
+    And Select suite option from Room Type dropdown
+    And clicks on Status checbox
+    And Enter "<price>" into Price field
+    And Enter "<description>" into Decription input field
+    And Click on Save button
+    And Close the Application
+
+    Examples:
+      | room number | price | description                 |
+      | 72244940    | 123   | Created for End to End Test |
