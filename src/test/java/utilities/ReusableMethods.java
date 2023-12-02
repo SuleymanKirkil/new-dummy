@@ -16,9 +16,9 @@ import java.util.List;
 
 public class ReusableMethods {
     //HARD WAIT METHOD
-    public static void bekle(int saniye) {
+    public static void wait(int second) {
         try {
-            Thread.sleep(saniye * 1000);
+            Thread.sleep(second * 1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -46,14 +46,14 @@ public class ReusableMethods {
 
     //DropDown VisibleText
     /*
-        Select select2 = new Select(gun);
+        Select select2 = new Select(day);
         select2.selectByVisibleText("7");
 
-        //ddmVisibleText(gun,"7"); --> Yukarıdaki kullanım yerine sadece method ile handle edebilirim
+        //ddmVisibleText(day,"7"); --> can be also used instead of above expression
      */
-    public static void ddmVisibleText(WebElement ddm, String secenek) {
+    public static void ddmVisibleText(WebElement ddm, String option) {
         Select select = new Select(ddm);
-        select.selectByVisibleText(secenek);
+        select.selectByVisibleText(option);
     }
 
     //DropDown Index
@@ -63,64 +63,64 @@ public class ReusableMethods {
     }
 
     //DropDown Value
-    public static void ddmValue(WebElement ddm, String secenek) {
+    public static void ddmValue(WebElement ddm, String option) {
         Select select = new Select(ddm);
-        select.selectByValue(secenek);
+        select.selectByValue(option);
     }
 
     //SwitchToWindow1
-    public static void switchToWindow(int sayi) {
-        List<String> tumWindowHandles = new ArrayList<String>(Driver.getDriver().getWindowHandles());
-        Driver.getDriver().switchTo().window(tumWindowHandles.get(sayi));
+    public static void switchToWindow(int num) {
+        List<String> allWindowHandles = new ArrayList<String>(Driver.getDriver().getWindowHandles());
+        Driver.getDriver().switchTo().window(allWindowHandles.get(num));
     }
 
     //SwitchToWindow2
-    public static void window(int sayi) {
-        Driver.getDriver().switchTo().window(Driver.getDriver().getWindowHandles().toArray()[sayi].toString());
+    public static void window(int num) {
+        Driver.getDriver().switchTo().window(Driver.getDriver().getWindowHandles().toArray()[num].toString());
     }
     //EXPLICIT WAIT METHODS
 
     //Visible Wait
-    public static void visibleWait(WebElement element, int sayi) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(sayi));
+    public static void visibleWait(WebElement element, int num) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(num));
         wait.until(ExpectedConditions.visibilityOf(element));
 
     }
 
     //VisibleElementLocator Wait
-    public static WebElement visibleWait(By locator, int sayi) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(sayi));
+    public static WebElement visibleWait(By locator, int num) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(num));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
     }
 
     //Alert Wait
-    public static void alertWait(int sayi) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(sayi));
+    public static void alertWait(int num) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(num));
         wait.until(ExpectedConditions.alertIsPresent());
 
     }
 
     //Tüm Sayfa ScreenShot
-    public static String tumSayfaResmi(String name) {
-        String tarih = new SimpleDateFormat("_hh_mm_ss_ddMMyyyy").format(new Date());
+    public static String wholePagePicture(String name) {
+        String date = new SimpleDateFormat("_hh_mm_ss_ddMMyyyy").format(new Date());
         TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
-        String dosyaYolu = System.getProperty("user.dir") + "/target/Screenshots/" + name + tarih + ".png";
+        String filePath = System.getProperty("user.dir") + "/target/Screenshots/" + name + date + ".png";
         try {
-            FileUtils.copyFile(ts.getScreenshotAs(OutputType.FILE), new File(dosyaYolu));
+            FileUtils.copyFile(ts.getScreenshotAs(OutputType.FILE), new File(filePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return dosyaYolu;
+        return filePath;
     }
 
     //WebElement ScreenShot
-    public static void webElementResmi(WebElement element) {
-        String tarih = new SimpleDateFormat("_hh_mm_ss_ddMMyyyy").format(new Date());
-        String dosyaYolu = "TestOutput/screenshot/webElementScreenshot" + tarih + ".png";
+    public static void webElementPicture(WebElement element) {
+        String date = new SimpleDateFormat("_hh_mm_ss_ddMMyyyy").format(new Date());
+        String filePath = "TestOutput/screenshot/webElementScreenshot" + date + ".png";
 
         try {
-            FileUtils.copyFile(element.getScreenshotAs(OutputType.FILE), new File(dosyaYolu));
+            FileUtils.copyFile(element.getScreenshotAs(OutputType.FILE), new File(filePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -128,8 +128,8 @@ public class ReusableMethods {
 
     //WebTable
     public static void printData(int satir, int sutun) {
-        WebElement satirSutun = Driver.getDriver().findElement(By.xpath("(//tbody)[1]//tr[" + satir + "]//td[" + sutun + "]"));
-        System.out.println(satirSutun.getText());
+        WebElement rowColumn = Driver.getDriver().findElement(By.xpath("(//tbody)[1]//tr[" + satir + "]//td[" + sutun + "]"));
+        System.out.println(rowColumn.getText());
     }
 
     //Click Method

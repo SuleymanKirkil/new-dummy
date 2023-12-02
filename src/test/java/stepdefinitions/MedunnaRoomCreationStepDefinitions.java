@@ -53,7 +53,7 @@ public class MedunnaRoomCreationStepDefinitions {
     }
     @When("Close the Application")
     public void close_the_application() {
-        //Driver.closeDriver();
+        Driver.closeDriver();
     }
 
 

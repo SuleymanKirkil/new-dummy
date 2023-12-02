@@ -1,4 +1,4 @@
-@e2e, @api
+@e2e , @api
 Feature: Api Room Creation Verification
   Scenario: Api Room
     Given User sends Get Request For last creates Rooms
